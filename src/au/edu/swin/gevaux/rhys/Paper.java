@@ -16,13 +16,12 @@ public class Paper {
         this.sheetCost = sheetCost;
     }
 
-    public double calculateCost(int bwInkPages, int colourInkPages, boolean isDoubleSided) {
-        int cost = (bwInkPages * bwInkCost + colourInkPages * colourInkCost) +
-                sheetCost * (bwInkPages + colourInkPages);
-        if (isDoubleSided) {
-            return (double) cost / 200;
-        } else {
-            return (double) cost / 100;
-        }
+    /**
+     * @param job - job information: 0 = black and white pages, 1 = colour pages, 2 = number of pages per paper
+     * @return the cost of the job in dollars
+     */
+    public double calculateCost(int[] job) {
+        double cost = ((job[0] * bwInkCost + job[1] * colourInkCost) + sheetCost * (job[0] + job[1])) / job[2];
+        return cost / 100;
     }
 }
