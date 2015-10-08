@@ -104,13 +104,21 @@ final class Printer {
     private static ArrayList<Job> readInJobs(String fileName, Paper paper) {
         ArrayList<Job> jobs = new ArrayList<>();
         for (String line : readFile(fileName)) {
-            Job job = new Job(paper);
             String[] lineSplit = line.split(",");
-            job.setBwPages(Integer.parseInt(lineSplit[0].trim()));
-            job.setColourPages(Integer.parseInt(lineSplit[1].trim()));
+
+            int pagesPerSheet;
             if (lineSplit[2].trim().equals("true")) {
-                job.setTwoPagesPerSheet();
+                pagesPerSheet = 2;
+            } else {
+                pagesPerSheet = 1;
             }
+
+            Job job = new Job(
+                    paper,
+                    Integer.parseInt(lineSplit[0].trim()),
+                    Integer.parseInt(lineSplit[1].trim()),
+                    pagesPerSheet
+            );
             jobs.add(job);
         }
         return jobs;

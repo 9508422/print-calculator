@@ -10,43 +10,27 @@ package au.edu.swin.gevaux.rhys;
  * @author Rhys Gevaux
  */
 class Job {
-    private static final int ZERO_PAGES = 0;
-    private static final int ONE_PAGE_PER_SHEET = 1;
     private final Paper paper;
     private int bwPages;
     private int colourPages;
     private int pagesPerSheet;
-    private double cost;
 
-    public Job(Paper paper) {
+    public Job(Paper paper, int bwPages, int colourPages, int pagesPerSheet) {
         this.paper = paper;
-        this.bwPages = ZERO_PAGES;
-        this.colourPages = ZERO_PAGES;
-        this.pagesPerSheet = ONE_PAGE_PER_SHEET;
-        cost = 0;
+        this.bwPages = bwPages;
+        this.colourPages = colourPages;
+        this.pagesPerSheet = pagesPerSheet;
     }
 
-    private void calculateCost() {
-        cost = (bwPages * paper.getBwInkCost() + colourPages * paper.getColourInkCost()) +
+    private double calculateCost() {
+        double cost = (bwPages * paper.getBwInkCost() + colourPages * paper.getColourInkCost()) +
                 paper.getSheetCost() * (bwPages + colourPages) / pagesPerSheet;
         cost /= 100;
-    }
-
-    public void setBwPages(int bwPages) {
-        this.bwPages = bwPages;
-    }
-
-    public void setColourPages(int colourPages) {
-        this.colourPages = colourPages;
-    }
-
-    public double getCost() {
-        calculateCost();
         return cost;
     }
 
-    public void setTwoPagesPerSheet() {
-        this.pagesPerSheet = 2;
+    public double getCost() {
+        return calculateCost();
     }
 
     @Override
