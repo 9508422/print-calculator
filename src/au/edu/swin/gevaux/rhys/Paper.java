@@ -18,14 +18,16 @@ class Paper {
         this.sheetCost = sheetCost;
     }
 
-    /**
-     * @param job - job to calculate cost of
-     * @return the cost of the job in dollars
-     */
-    public double calculateCost(Job job) {
-        double cost = ((job.getBwPages() * bwInkCost + job.getColourPages() * colourInkCost) +
-                sheetCost * (job.getBwPages() + job.getColourPages())) / job.getPagesPerSheet();
-        return cost / 100;
+    public int getBwInkCost() {
+        return bwInkCost;
+    }
+
+    public int getColourInkCost() {
+        return colourInkCost;
+    }
+
+    public int getSheetCost() {
+        return sheetCost;
     }
 
     @Override

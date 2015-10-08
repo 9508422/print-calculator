@@ -19,13 +19,7 @@ public class Display {
         System.out.print(output);
     }
 
-    public void printJobOutput(Paper paper, Job job) {
-        out(paper.toString() +
-                "\n\tPage counts:" +
-                "\n\t\tBlack & white: " + job.getBwPages() +
-                "\n\t\tColour: " + job.getColourPages() +
-                "\n\tPages per sheet: " + job.getPagesPerSheet() +
-                "\nJob cost: $" + String.format("%1$,.2f", paper.calculateCost(job)) +
-                "\n~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+    public void costOut(double output) {
+        System.out.println("$" + String.format("%1$,.2f", output));
     }
 }
