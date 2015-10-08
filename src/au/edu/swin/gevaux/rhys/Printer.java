@@ -75,18 +75,18 @@ final class Printer {
             String paperName = lineSplit[0].trim();
             int bwSingleCost = Integer.parseInt(lineSplit[1].trim());
             int colourSingleCost = Integer.parseInt(lineSplit[2].trim());
-            int bwDoubleleCost = Integer.parseInt(lineSplit[3].trim());
-            int colourDoubleleCost = Integer.parseInt(lineSplit[4].trim());
+            int bwDoubleCost = Integer.parseInt(lineSplit[3].trim());
+            int colourDoubleCost = Integer.parseInt(lineSplit[4].trim());
 
             paperTypes.put(paperName, new Paper(
                     paperName,
                     // the cost of the ink equals the difference between
                     // printing two double sided pages and a single sided page
-                    bwDoubleleCost * 2 - bwSingleCost,
-                    colourDoubleleCost * 2 - colourSingleCost,
+                    bwDoubleCost * 2 - bwSingleCost,
+                    colourDoubleCost * 2 - colourSingleCost,
                     // the cost of the sheet equals the cost of printing a
                     // single sided page minus the cost of one page of ink
-                    bwSingleCost - (bwDoubleleCost * 2 - bwSingleCost)
+                    bwSingleCost - (bwDoubleCost * 2 - bwSingleCost)
             ));
         }
         return paperTypes;
