@@ -12,39 +12,27 @@ import java.util.Scanner;
  *
  * @author Rhys Gevaux
  */
-public class Printer {
-    private static final Printer ourInstance = new Printer();
-
-    private final Display display;
-    
-    private Printer() {
-        this.display = Display.getInstance();
-    }
-
-    public static Printer getInstance() {
-        return ourInstance;
-    }
-
-    public void run() {
+final class Printer {
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String input = "";
         HashMap<String, Paper> paperTypes = readInPaperTypes();
         while (!input.equals("exit")) {
-            display.out("Input desired paper type (A4):\n");
+            Display.out("Input desired paper type (A4):\n");
             Paper paper = paperTypes.get(scanner.nextLine().trim().toUpperCase());
-            display.out("Input desired job file (printjobs.csv):\n");
+            Display.out("Input desired job file (printjobs.csv):\n");
             double totalCost = 0;
             for (Job job : readInJobs(scanner.nextLine().trim(), paper)) {
-                display.out(job.toString());
+                Display.out(job.toString());
                 totalCost += job.getCost();
             }
-            display.out("Total cost: ");
-            display.costOut(totalCost);
-            display.out("~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+            Display.out("Total cost: ");
+            Display.costOut(totalCost);
+            Display.out("~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
         }
     }
 
-    private HashMap<String, Paper> readInPaperTypes() {
+    private static HashMap<String, Paper> readInPaperTypes() {
         HashMap<String, Paper> paperTypes = new HashMap<>();
         for (String line : readFile("papertypes.csv")) {
             String[] lineSplit = line.split(",");
@@ -60,7 +48,7 @@ public class Printer {
         return paperTypes;
     }
 
-    private ArrayList<Job> readInJobs(String fileName, Paper paper) {
+    private static ArrayList<Job> readInJobs(String fileName, Paper paper) {
         ArrayList<Job> jobs = new ArrayList<>();
         for (String line : readFile(fileName)) {
             Job job = new Job(paper);
@@ -68,14 +56,14 @@ public class Printer {
             job.setBwPages(Integer.parseInt(lineSplit[0].trim()));
             job.setColourPages(Integer.parseInt(lineSplit[1].trim()));
             if (lineSplit[2].trim().equals("true")) {
-                job.setPagesPerSheet(2);
+                job.setTwoPagesPerSheet();
             }
             jobs.add(job);
         }
         return jobs;
     }
 
-    private ArrayList<String> readFile(String fileName) {
+    private static ArrayList<String> readFile(String fileName) {
         ArrayList<String> lines = new ArrayList<>();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
             String line;
@@ -83,7 +71,7 @@ public class Printer {
                 lines.add(line);
             }
         } catch (IOException e) {
-            display.out("File does not exist.");
+            Display.out("File does not exist.");
         }
         return lines;
     }

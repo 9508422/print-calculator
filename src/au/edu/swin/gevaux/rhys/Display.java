@@ -5,21 +5,12 @@ package au.edu.swin.gevaux.rhys;
  *
  * @author Rhys Gevaux
  */
-public class Display {
-    private static final Display ourInstance = new Display();
-    
-    private Display() {
-    }
-    
-    public static Display getInstance() {
-        return ourInstance;
-    }
-
-    public void out(String output) {
+final class Display {
+    public static void out(String output) {
         System.out.print(output);
     }
 
-    public void costOut(double output) {
+    public static void costOut(double output) {
         System.out.println("$" + String.format("%1$,.2f", output));
     }
 }
