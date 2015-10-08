@@ -11,9 +11,9 @@ package au.edu.swin.gevaux.rhys;
  */
 class Job {
     private final Paper paper;
-    private int bwPages;
-    private int colourPages;
-    private int pagesPerSheet;
+    private final int bwPages;
+    private final int colourPages;
+    private final int pagesPerSheet;
 
     public Job(Paper paper, int bwPages, int colourPages, int pagesPerSheet) {
         this.paper = paper;
