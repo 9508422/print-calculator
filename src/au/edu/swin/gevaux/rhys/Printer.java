@@ -28,31 +28,40 @@ final class Printer {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String input = "";
+
         HashMap<String, Paper> paperTypes = readInPaperTypes();
+
         while (!input.equals("exit")) {
-            Display.out("Type \"exit\" to exit the program\nInput desired paper type (A4):\n");
+            Display.out("Type \"exit\" to exit the program\n" +
+                    "Input desired paper type (A4):\n");
             input = scanner.nextLine().trim();
+
             Paper paper;
             if (paperTypes.containsKey(input.toUpperCase())) {
-                boolean success = false;
+                boolean success = false; // allows correct output to be given,
+                // only true when the entire process is successful
                 while (!input.equals("exit") && !success) {
                     paper = paperTypes.get(input.toUpperCase());
 
                     Display.out("Input desired job file (printjobs.csv):\n");
                     input = scanner.nextLine().trim();
+
                     File file = new File(input);
                     if (file.isFile()) {
                         ArrayList<Job> jobs = readInJobs(input, paper);
                         if (jobs != null) {
                             double totalCost = 0;
                             Display.out("~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+
                             for (Job job : jobs) {
                                 Display.out(job.toString());
                                 totalCost += job.getCost();
                             }
+
                             Display.out("Total cost: ");
                             Display.costOut(totalCost);
                             Display.out("~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+
                             success = true;
                         } else {
                             Display.out("Invalid job in jobs file!\n");
@@ -101,6 +110,7 @@ final class Printer {
 
     /**
      * Creates an ArrayList of all the jobs
+     * Returns null if there is an invalid job
      *
      * @param fileName - desired file to read
      * @param paper    - the paper type chosen
@@ -110,6 +120,11 @@ final class Printer {
         ArrayList<Job> jobs = new ArrayList<>();
         for (String line : readFile(fileName)) {
             String[] lineSplit = line.split(",");
+
+            // if there is more or less than the desired information, the job is invalid
+            if (lineSplit.length != 3) {
+                return null;
+            }
 
             int pagesPerSheet;
             if (lineSplit[2].trim().equals("false")) {
