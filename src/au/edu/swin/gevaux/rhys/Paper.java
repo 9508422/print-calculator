@@ -5,7 +5,7 @@ package au.edu.swin.gevaux.rhys;
  *
  * @author Rhys Gevaux
  */
-public class Paper {
+class Paper {
     private final String type;
     private final int bwInkCost;
     private final int colourInkCost;

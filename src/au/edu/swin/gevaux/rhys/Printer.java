@@ -17,7 +17,7 @@ public class Printer {
 
     private final Display display;
     
-    public Printer() {
+    private Printer() {
         this.display = Display.getInstance();
     }
 
@@ -33,7 +33,7 @@ public class Printer {
             display.out("Input desired paper type (A4):\n");
             Paper paper = paperTypes.get(scanner.nextLine().trim().toUpperCase());
             display.out("Input desired job file (printjobs.csv):\n");
-            for (Job job : readInJobs(scanner.nextLine().trim(), paper)) {
+            for (Job job : readInJobs(scanner.nextLine().trim())) {
                 display.printJobOutput(paper, job);
             }
         }
@@ -55,10 +55,10 @@ public class Printer {
         return paperTypes;
     }
 
-    private ArrayList<Job> readInJobs(String fileName, Paper paper) {
+    private ArrayList<Job> readInJobs(String fileName) {
         ArrayList<Job> jobs = new ArrayList<>();
         for (String line : readFile(fileName)) {
-            Job job = new Job(paper);
+            Job job = new Job();
             String[] lineSplit = line.split(",");
             job.setBwPages(Integer.parseInt(lineSplit[0].trim()));
             job.setColourPages(Integer.parseInt(lineSplit[1].trim()));

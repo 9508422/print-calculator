@@ -5,14 +5,12 @@ package au.edu.swin.gevaux.rhys;
  *
  * @author Rhys Gevaux
  */
-public class Job {
-    private Paper paper;
+class Job {
     private int bwPages;
     private int colourPages;
     private int pagesPerSheet;
 
-    public Job(Paper paper) {
-        this.paper = paper;
+    public Job() {
         this.bwPages = 0;
         this.colourPages = 0;
         this.pagesPerSheet = 1;
