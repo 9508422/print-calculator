@@ -42,16 +42,21 @@ final class Printer {
                     input = scanner.nextLine().trim();
                     File file = new File(input);
                     if (file.isFile()) {
-                        double totalCost = 0;
-                        Display.out("~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-                        for (Job job : readInJobs(input, paper)) {
-                            Display.out(job.toString());
-                            totalCost += job.getCost();
+                        ArrayList<Job> jobs = readInJobs(input, paper);
+                        if (jobs != null) {
+                            double totalCost = 0;
+                            Display.out("~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+                            for (Job job : jobs) {
+                                Display.out(job.toString());
+                                totalCost += job.getCost();
+                            }
+                            Display.out("Total cost: ");
+                            Display.costOut(totalCost);
+                            Display.out("~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+                            success = true;
+                        } else {
+                            Display.out("Invalid job in jobs file!\n");
                         }
-                        Display.out("Total cost: ");
-                        Display.costOut(totalCost);
-                        Display.out("~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
-                        success = true;
                     } else if (!input.equals("exit")) {
                         Display.out("Job file does not exist!\n");
                     }
@@ -107,18 +112,24 @@ final class Printer {
             String[] lineSplit = line.split(",");
 
             int pagesPerSheet;
-            if (lineSplit[2].trim().equals("true")) {
+            if (lineSplit[2].trim().equals("false")) {
+                pagesPerSheet = 1;
+            } else if (lineSplit[2].trim().equals("true")) {
                 pagesPerSheet = 2;
             } else {
-                pagesPerSheet = 1;
+                return null;
             }
 
-            Job job = new Job(
-                    paper,
-                    Integer.parseInt(lineSplit[0].trim()),
-                    Integer.parseInt(lineSplit[1].trim()),
-                    pagesPerSheet
-            );
+            int bwPages;
+            int colourPages;
+            try {
+                bwPages = Integer.parseInt(lineSplit[0].trim());
+                colourPages = Integer.parseInt(lineSplit[1].trim());
+            } catch (NumberFormatException e) {
+                return null;
+            }
+
+            Job job = new Job(paper, bwPages, colourPages, pagesPerSheet);
             jobs.add(job);
         }
         return jobs;
