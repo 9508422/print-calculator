@@ -34,12 +34,14 @@ final class Printer {
         while (!input.equals("exit")) {
             Display.out("Type \"exit\" to exit the program\n" +
                     "Input desired paper type (A4):\n");
+
             input = scanner.nextLine().trim();
 
             Paper paper;
             if (paperTypes.containsKey(input.toUpperCase())) {
-                boolean success = false; // allows correct output to be given,
-                // only true when the entire process is successful
+                // allows correct output to be given - only true when the entire process is successful
+                boolean success = false;
+
                 while (!input.equals("exit") && !success) {
                     paper = paperTypes.get(input.toUpperCase());
 
@@ -111,6 +113,7 @@ final class Printer {
     /**
      * Creates an ArrayList of all the jobs
      * Returns null if there is an invalid job
+     * If there are extra values given in the jobs list passed the initial three, they are ignored
      *
      * @param fileName - desired file to read
      * @param paper    - the paper type chosen
@@ -121,26 +124,27 @@ final class Printer {
         for (String line : readFile(fileName)) {
             String[] lineSplit = line.split(",");
 
-            // if there is more or less than the desired information, the job is invalid
-            if (lineSplit.length != 3) {
-                return null;
-            }
-
-            int pagesPerSheet;
-            if (lineSplit[2].trim().equals("false")) {
-                pagesPerSheet = 1;
-            } else if (lineSplit[2].trim().equals("true")) {
-                pagesPerSheet = 2;
-            } else {
-                return null;
-            }
-
             int bwPages;
             int colourPages;
+            int pagesPerSheet;
             try {
                 bwPages = Integer.parseInt(lineSplit[0].trim());
                 colourPages = Integer.parseInt(lineSplit[1].trim());
-            } catch (NumberFormatException e) {
+
+                // page counts must be larger than zero
+                if (bwPages < 0 || colourPages < 0) {
+                    return null;
+                }
+
+                // must be either single or double sided
+                if (lineSplit[2].trim().equals("false")) {
+                    pagesPerSheet = 1;
+                } else if (lineSplit[2].trim().equals("true")) {
+                    pagesPerSheet = 2;
+                } else {
+                    return null;
+                }
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
                 return null;
             }
 
