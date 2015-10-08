@@ -27,26 +27,38 @@ final class Printer {
      */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String input = "";
 
         HashMap<String, Paper> paperTypes = readInPaperTypes();
 
-        while (!input.equals("exit")) {
-            Display.out("Type \"exit\" to exit the program\n" +
-                    "Input desired paper type (A4):\n");
+        Display.out("Type \"exit\" to exit the program\n");
 
-            input = scanner.nextLine().trim();
+        while (true) {
+            Display.out("Input desired paper type (A4):\n");
 
-            Paper paper;
-            if (paperTypes.containsKey(input.toUpperCase())) {
+            String input;
+            String tempInput = scanner.nextLine().trim();
+            if (tempInput.toLowerCase().equals("exit")) {
+                break;
+            } else {
+                // it can be assumed paper types will be differentiated by more than case
+                input = tempInput.toUpperCase();
+            }
+
+            if (paperTypes.containsKey(input)) {
                 // allows correct output to be given - only true when the entire process is successful
                 boolean success = false;
 
-                while (!input.equals("exit") && !success) {
-                    paper = paperTypes.get(input.toUpperCase());
+                Paper paper = paperTypes.get(input);
 
+                while (!success) {
                     Display.out("Input desired job file (printjobs.csv):\n");
-                    input = scanner.nextLine().trim();
+
+                    tempInput = scanner.nextLine().trim();
+                    if (input.toLowerCase().equals("exit")) {
+                        break;
+                    } else {
+                        input = tempInput;
+                    }
 
                     File file = new File(input);
                     if (file.isFile()) {
@@ -68,11 +80,11 @@ final class Printer {
                         } else {
                             Display.out("Invalid job in jobs file!\n");
                         }
-                    } else if (!input.equals("exit")) {
+                    } else {
                         Display.out("Job file does not exist!\n");
                     }
                 }
-            } else if (!input.equals("exit")) {
+            } else {
                 Display.out("Paper type does not exist!\n");
             }
         }
