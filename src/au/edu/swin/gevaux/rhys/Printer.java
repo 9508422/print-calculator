@@ -36,21 +36,21 @@ final class Printer {
             if (paperTypes.containsKey(input.toUpperCase())) {
                 boolean success = false;
                 while (!input.equals("exit") && !success) {
-                    paper = paperTypes.get(input);
+                    paper = paperTypes.get(input.toUpperCase());
 
                     Display.out("Input desired job file (printjobs.csv):\n");
                     input = scanner.nextLine().trim();
                     File file = new File(input);
                     if (file.isFile()) {
                         double totalCost = 0;
+                        Display.out("~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
                         for (Job job : readInJobs(input, paper)) {
                             Display.out(job.toString());
                             totalCost += job.getCost();
-
-                            Display.out("Total cost: ");
-                            Display.costOut(totalCost);
-                            Display.out("~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
                         }
+                        Display.out("Total cost: ");
+                        Display.costOut(totalCost);
+                        Display.out("~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
                         success = true;
                     } else if (!input.equals("exit")) {
                         Display.out("Job file does not exist!\n");
@@ -65,6 +65,7 @@ final class Printer {
 
     /**
      * Creates a HashMap of all the paper types found in the file: "papertypes.csv"
+     * Makes all paper types upper case, it can be assumed paper types are not case-sensitive
      *
      * @return a HashMap of paper types with name keys and Paper values
      */
@@ -73,7 +74,7 @@ final class Printer {
         for (String line : readFile("papertypes.csv")) {
             String[] lineSplit = line.split(",");
 
-            String paperName = lineSplit[0].trim();
+            String paperName = lineSplit[0].trim().toUpperCase();
             int bwSingleCost = Integer.parseInt(lineSplit[1].trim());
             int colourSingleCost = Integer.parseInt(lineSplit[2].trim());
             int bwDoubleCost = Integer.parseInt(lineSplit[3].trim());

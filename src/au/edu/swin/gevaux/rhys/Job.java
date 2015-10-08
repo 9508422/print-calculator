@@ -27,8 +27,8 @@ class Job {
     }
 
     private void calculateCost() {
-        cost = ((bwPages * paper.getBwInkCost() + colourPages * paper.getColourInkCost()) +
-                paper.getSheetCost() * (bwPages + colourPages)) / pagesPerSheet;
+        cost = (bwPages * paper.getBwInkCost() + colourPages * paper.getColourInkCost()) +
+                paper.getSheetCost() * (bwPages + colourPages) / pagesPerSheet;
         cost /= 100;
     }
 
@@ -57,6 +57,6 @@ class Job {
                 "\n\t\tColour: " + colourPages +
                 "\n\tPages per sheet: " + pagesPerSheet +
                 "\nJob cost: $" + String.format("%1$,.2f", getCost()) +
-                "\n~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+                "\n--------------------------\n";
     }
 }
