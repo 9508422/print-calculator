@@ -6,22 +6,34 @@ package au.edu.swin.gevaux.rhys;
  * @author Rhys Gevaux
  */
 public class Paper {
+    private final String type;
     private final int bwInkCost;
     private final int colourInkCost;
     private final int sheetCost;
 
-    public Paper(int bwInkCost, int colourInkCost, int sheetCost) {
+    public Paper(String type, int bwInkCost, int colourInkCost, int sheetCost) {
+        this.type = type;
         this.bwInkCost = bwInkCost;
         this.colourInkCost = colourInkCost;
         this.sheetCost = sheetCost;
     }
 
     /**
-     * @param job - job information: 0 = black and white pages, 1 = colour pages, 2 = number of pages per paper
+     * @param job - job to calculate cost of
      * @return the cost of the job in dollars
      */
-    public double calculateCost(int[] job) {
-        double cost = ((job[0] * bwInkCost + job[1] * colourInkCost) + sheetCost * (job[0] + job[1])) / job[2];
+    public double calculateCost(Job job) {
+        double cost = ((job.getBwPages() * bwInkCost + job.getColourPages() * colourInkCost) +
+                sheetCost * (job.getBwPages() + job.getColourPages())) / job.getPagesPerSheet();
         return cost / 100;
+    }
+
+    @Override
+    public String toString() {
+        return "Paper type: " + type +
+                "\n\tCost per sheet: " + sheetCost +
+                "\n\tInk costs per page:" +
+                "\n\t\tBlack & white: " + bwInkCost +
+                "\n\t\tColour: " + colourInkCost;
     }
 }
