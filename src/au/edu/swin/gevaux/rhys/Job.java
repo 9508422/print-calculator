@@ -3,11 +3,15 @@ package au.edu.swin.gevaux.rhys;
 /**
  * Created by Rhys Gevaux on 8/10/15.
  *
+ * Job.java
+ *  -Holds all the information about the job
+ *  -Calculates the cost of the job
+ *
  * @author Rhys Gevaux
  */
 class Job {
     private static final int ZERO_PAGES = 0;
-    private static final int ONE_PAGE_PER_SHEET = 0;
+    private static final int ONE_PAGE_PER_SHEET = 1;
     private final Paper paper;
     private int bwPages;
     private int colourPages;

@@ -3,6 +3,9 @@ package au.edu.swin.gevaux.rhys;
 /**
  * Created by Rhys Gevaux on 6/10/15.
  *
+ * Paper.java
+ *  -Holds all the information about the paper type
+ *
  * @author Rhys Gevaux
  */
 class Paper {
