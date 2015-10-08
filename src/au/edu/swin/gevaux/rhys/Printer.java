@@ -10,9 +10,9 @@ import java.util.Scanner;
 
 /**
  * Created by Rhys Gevaux on 8/10/15.
- *
+ * <p>
  * Printer.java
- * Controls the program:
+ * -Controls the program:
  *  -Handles all input (from console)
  *  -Reads all files
  *  -Sends all output through the Display class
@@ -65,6 +65,7 @@ final class Printer {
 
     /**
      * Creates a HashMap of all the paper types found in the file: "papertypes.csv"
+     *
      * @return a HashMap of paper types with name keys and Paper values
      */
     private static HashMap<String, Paper> readInPaperTypes() {
@@ -94,8 +95,9 @@ final class Printer {
 
     /**
      * Creates an ArrayList of all the jobs
+     *
      * @param fileName - desired file to read
-     * @param paper - the paper type chosen
+     * @param paper    - the paper type chosen
      * @return an ArrayList of all the jobs found in the given file
      */
     private static ArrayList<Job> readInJobs(String fileName, Paper paper) {
@@ -115,6 +117,7 @@ final class Printer {
 
     /**
      * A file reader class
+     *
      * @param fileName - desired file to read
      * @return the lines of the file
      */

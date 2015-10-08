@@ -2,10 +2,10 @@ package au.edu.swin.gevaux.rhys;
 
 /**
  * Created by Rhys Gevaux on 8/10/15.
- *
+ * <p>
  * Job.java
- *  -Holds all the information about the job
- *  -Calculates the cost of the job
+ * -Holds all the information about the job
+ * -Calculates the cost of the job
  *
  * @author Rhys Gevaux
  */

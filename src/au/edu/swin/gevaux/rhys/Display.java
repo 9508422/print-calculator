@@ -2,9 +2,9 @@ package au.edu.swin.gevaux.rhys;
 
 /**
  * Created by Rhys Gevaux on 8/10/15.
- *
+ * <p>
  * Display.java
- *  -Handles all output (to console)
+ * -Handles all output (to console)
  *
  * @author Rhys Gevaux
  */
