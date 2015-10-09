@@ -40,7 +40,7 @@ final class Printer {
             if (tempInput.toLowerCase().equals("exit")) {
                 break;
             } else {
-                // it can be assumed paper types will be differentiated by more than case
+                // it is assumed paper types will be differentiated by more than case
                 input = tempInput.toUpperCase();
             }
 
@@ -94,6 +94,7 @@ final class Printer {
     /**
      * Creates a HashMap of all the paper types found in the file: "papertypes.csv"
      * Makes all paper types upper case, it can be assumed paper types are not case-sensitive
+     * Currently serves little purpose but allows for more paper types in the future
      *
      * @return a HashMap of paper types with name keys and Paper values
      */
@@ -140,6 +141,7 @@ final class Printer {
             int colourPages;
             int pagesPerSheet;
             try {
+                // page counts must be integers
                 bwPages = Integer.parseInt(lineSplit[0].trim());
                 colourPages = Integer.parseInt(lineSplit[1].trim());
 
@@ -167,7 +169,7 @@ final class Printer {
     }
 
     /**
-     * A file reader class
+     * A file reader function
      *
      * @param fileName - desired file to read
      * @return the lines of the file
